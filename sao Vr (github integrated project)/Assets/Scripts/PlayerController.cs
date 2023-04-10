@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         PlayerHealth = 100;
-        Debug.Log(PlayerHealth);
+        //Debug.Log(PlayerHealth);
     }
 
     // Update is called once per frame
@@ -34,13 +34,15 @@ public class PlayerController : MonoBehaviour
     void isHit()
     {
         PlayerHealth -= 10;
-        Debug.Log("Player is Hit, his health is now: " + PlayerHealth);
+        Debug.Log("Player: " + PlayerHealth);
         
     }
     
     void IsDead()
     {
-        Debug.Log("Player is DEAD!");
+        //Debug.Log("Player is DEAD!");
+        transform.position = new Vector3(0, 40, 0);
+        PlayerHealth = 100;
         
     }
 }

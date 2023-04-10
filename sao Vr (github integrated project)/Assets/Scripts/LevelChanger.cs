@@ -7,21 +7,17 @@ public class LevelChanger : MonoBehaviour
 {
 
     public GameObject Cylinders;
-    public GameObject Pedestal;
-    public GameObject Button;
+    public GameObject Orb;
     public bool playAnimation;
     public float linkStartSpeed;
     public Animator animator;
-    public GameObject InputObject;
- 
-    ButtonState buttonstate;
     
     private string levelToLoad;
     
     // Start is called before the first frame update
     void Start()
     {
-        buttonstate = InputObject.GetComponent<ButtonState>();
+        
     }
 
     // Update is called once per frame
@@ -29,20 +25,20 @@ public class LevelChanger : MonoBehaviour
     {
         if (playAnimation)
         {
+            Debug.Log("playanimation");
             Cylinders.transform.position += Vector3.back * linkStartSpeed * Time.deltaTime;
-            Pedestal.transform.position += Vector3.down * 15 * Time.deltaTime;
-            Button.transform.position += Vector3.down * 15 * Time.deltaTime;
+            Orb.transform.position += Vector3.down * 15 * Time.deltaTime;
             
-            if (Cylinders.transform.position.z <= -50)
+            if (Cylinders.transform.position.z <= -100)
             {
                 FadeToLevel("Scene2");
             }
         }
         
-        if(buttonstate.TheButtonIsPressed)
-        {
-            playAnimation = true;
-        }
+        //if(???)
+        //{
+        //    playAnimation = true;
+        //}
     }
     
     public void FadeToLevel (string levelName)
