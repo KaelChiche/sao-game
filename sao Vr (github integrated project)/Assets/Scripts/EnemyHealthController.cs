@@ -7,9 +7,13 @@ public class EnemyHealthController : MonoBehaviour
     
     Animator animator;
     public float EnemyHealth;
+    public Swords swords;
     
     [SerializeField] private float _maxHealth = 50;
     [SerializeField] private HealthBar _healthbar;
+    
+    private float cooldownTime = 0.5f;
+    private float nextSwingTime = 0.0f;
     
     // Start is called before the first frame update
     void Start()
@@ -30,26 +34,31 @@ public class EnemyHealthController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PlayerSword")
+        if (Time.time > nextSwingTime)
         {
-            EnemyIsHit();
+            if(other.gameObject.tag == "PlayerSword")
+            {
+                EnemyIsHit();
+            }
+            
+            nextSwingTime = Time.time + cooldownTime;
         }
     }
     
     
     void EnemyIsHit()
     {
-        EnemyHealth -= 10;
-        Debug.Log("Enemy: " + EnemyHealth);
+        EnemyHealth -= (int)(swords.velocity * 0.25) + 1;
+        //Debug.Log("Enemy: " + EnemyHealth);
         _healthbar.UpdateHealthBar(_maxHealth, EnemyHealth);
-        
     }
     
     void EnemyIsDead()
     {
-        //Debug.Log("Enemy is DEAD!");
         animator.SetBool("IsDead", true);
-        Destroy(this);
+        GetComponent<ParticleBurst>().OnTriggerDeathParticles();
+        GetComponent<EnemyAI>().enabled = false;
+        Destroy(gameObject, 3);
     }
     
 }

@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     void isHit()
     {
         PlayerHealth -= 10;
-        Debug.Log("Player: " + PlayerHealth);
+        //Debug.Log("Player: " + PlayerHealth);
         
     }
     

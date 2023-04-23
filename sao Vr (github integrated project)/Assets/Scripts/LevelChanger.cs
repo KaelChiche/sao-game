@@ -8,6 +8,8 @@ public class LevelChanger : MonoBehaviour
 
     public GameObject Cylinders;
     public GameObject Orb;
+    public GameObject NameBoard;
+    public GameObject SkinBoard;
     public bool playAnimation;
     public float linkStartSpeed;
     public Animator animator;
@@ -25,9 +27,12 @@ public class LevelChanger : MonoBehaviour
     {
         if (playAnimation)
         {
-            Debug.Log("playanimation");
             Cylinders.transform.position += Vector3.back * linkStartSpeed * Time.deltaTime;
-            Orb.transform.position += Vector3.down * 15 * Time.deltaTime;
+            
+            Orb.transform.Translate(Vector3.down * 100);
+            NameBoard.transform.Translate(Vector3.down * 100);
+            SkinBoard.transform.Translate(Vector3.down * 100);
+
             
             if (Cylinders.transform.position.z <= -100)
             {

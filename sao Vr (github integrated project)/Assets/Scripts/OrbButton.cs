@@ -20,10 +20,8 @@ public class OrbButton : MonoBehaviour
     
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("collided");
         if(other.gameObject.tag == "Hand")
         {
-            Debug.Log("buttonpressed");
             levelChanger.playAnimation = true;
             Destroy(other.gameObject);
         }

@@ -10,6 +10,11 @@ public class Swords : MonoBehaviour
     private XRGrabInteractable grabInteractable;
     private Collider objectCollider;
     
+    public float velocity;
+    
+    private float cooldownTime = 0.5f;
+    private float nextSwingTime = 0.0f;
+    
     // Awake is called before the first frame update
     void Awake()
     {
@@ -23,21 +28,26 @@ public class Swords : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        StartCoroutine(CalculateVelocity());
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Enemie")
+        if (Time.time > nextSwingTime)
         {
-            //Debug.Log("EnemieHit");
-            enemyAi.EnemieHit();
-        }
-        
-        if(other.gameObject.tag == "EnemieWeapon")
-        {
-            //Debug.Log("EnemieWeapon");
-            enemyAi.StunEnemie();
+            if(other.gameObject.tag == "Enemie")
+            {
+                //Debug.Log("EnemieHit");
+                enemyAi.EnemieHit();
+            }
+
+            if(other.gameObject.tag == "EnemieWeapon")
+            {
+                //Debug.Log("EnemieWeapon");
+                enemyAi.StunEnemy();
+            }
+            
+            nextSwingTime = Time.time + cooldownTime;
         }
     }
     
@@ -69,5 +79,12 @@ public class Swords : MonoBehaviour
     {
         // Set the collider to not be a trigger when it is released
         objectCollider.isTrigger = false;
+    }
+    
+    IEnumerator CalculateVelocity()
+    {
+        Vector3 lastPosition = transform.position;
+        yield return new WaitForFixedUpdate();
+        velocity = (lastPosition - transform.position).magnitude / Time.deltaTime;
     }
 }
