@@ -7,11 +7,14 @@ public class PlayerController : MonoBehaviour
     
     public float PlayerHealth;
     
+    [SerializeField] private float _maxHealth = 100;
+    [SerializeField] private HealthBar _healthbar;
+    
     // Start is called before the first frame update
     void Start()
     {
-        PlayerHealth = 100;
-        //Debug.Log(PlayerHealth);
+        PlayerHealth = _maxHealth;
+        _healthbar.UpdateHealthBar(_maxHealth, PlayerHealth);
     }
 
     // Update is called once per frame
@@ -27,14 +30,15 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.tag == "EnemieWeapon")
         {
-            isHit();
+            isHit(10);
         }
     }
     
-    void isHit()
+    void isHit(float damage)
     {
-        PlayerHealth -= 10;
-        //Debug.Log("Player: " + PlayerHealth);
+        PlayerHealth -= damage;
+        _healthbar.UpdateHealthBar(_maxHealth, PlayerHealth);
+        Debug.Log("player hit");
         
     }
     

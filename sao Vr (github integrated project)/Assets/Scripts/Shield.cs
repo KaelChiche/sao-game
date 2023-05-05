@@ -48,10 +48,11 @@ public class Shield : MonoBehaviour
             Debug.Log(knockbackDirection);
             Debug.Log(velocity);
             Debug.Log(KnockBackMultiplier);
+            Debug.Log(other);
             
             
             // Apply the knockback force in the opposite direction of the collision
-            rb.AddForce(knockbackDirection * 10, ForceMode.Impulse);
+            rb.AddForce(knockbackDirection * 50, ForceMode.Impulse);
             Debug.Log("Knocked back");
         }
     }
